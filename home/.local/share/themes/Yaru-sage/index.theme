@@ -1,0 +1,15 @@
+[Desktop Entry]
+Name=Yaru-sage
+Type=X-GNOME-Metatheme
+Comment=Ubuntu Yaru-sage theme
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Yaru-sage
+MetacityTheme=Yaru
+IconTheme=Yaru-sage
+CursorTheme=Yaru
+CursorSize=24
+X-Yaru-Dark=false
+X-Yaru-Accent-Name=sage
+X-Yaru-Accent-Color=#657B69
