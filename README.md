@@ -3,7 +3,7 @@ This repository contains the config files and scripts for my Xmonad window manag
 ## Screenshots
 ### Workspace
 ![Workspace screenshot](screenshots/workspace.png)
-![Rofi screenshot](sreenshots/rofi.png)
+![Rofi screenshot](screenshots/rofi.png)
 ### Lock screen
 ![Lock screen screenshot](home/.local/share/wallpapers/wallpaper_lock.png)
 ## Installation
