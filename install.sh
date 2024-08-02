@@ -20,7 +20,7 @@ script_dir=$(dirname $(realpath $0))
 # Set username
 sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/userconfig/xmobarrc
 sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/sysconfig/lightdm.conf
-sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/sysconfig/xmonad.conf
+sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/sysconfig/xmonad.desktop
 
 # Add additional repositories
 xbps-install void-repo-nonfree void-repo-multilib void-repo-multilib-nonfree -y
@@ -47,9 +47,9 @@ xbps-install xorg lightdm elogind \
 # Install xmonad
 mkdir -p "$home_dir"/.config/xmonad/
 cp "$script_dir"/userconfig/.config/xmonad/xmonad.hs "$home_dir"/.config/xmonad/
-cabal update
-cabal install --package-env="$home_dir"/.config/xmonad --lib base xmonad xmonad-contrib
-cabal install --package-env="$home_dir"/.config/xmonad xmonad
+sudo -u "$username" cabal update
+sudo -u "$username" cabal install --package-env="$home_dir"/.config/xmonad --lib base xmonad xmonad-contrib
+sudo -u "$username" cabal install --package-env="$home_dir"/.config/xmonad xmonad
 
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install com.discordapp.Discord io.github.shiftey.Desktop -y
