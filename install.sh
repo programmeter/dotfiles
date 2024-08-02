@@ -18,7 +18,7 @@ home_dir='/home/'"$username"
 script_dir=$(dirname $(realpath $0))
 
 # Set username
-sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/userconfig/xmobarrc
+sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/userconfig/.config/xmobarrc
 sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/sysconfig/lightdm.conf
 sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/sysconfig/xmonad.desktop
 
@@ -40,7 +40,7 @@ xbps-install -y xorg lightdm elogind \
     git vim picom rofi xmobar dunst alacritty feh \
     libgcc-32bit libstdc++-32bit libdrm-32bit libglvnd-32bit \
     i3lock xautolock xss-lock \
-    firefox steam gimp thunderbird Thunar thunar-archive-plugin shotwell celluloid rhythmbox gnome-disk-utility libreoffice-calc libreoffice-writer libreoffice-gnome transmission-gtk timeshift galculator mousepad PrismLauncher keepassxc
+    firefox steam gimp thunderbird Thunar thunar-archive-plugin shotwell celluloid rhythmbox gnome-disk-utility libreoffice-calc libreoffice-writer libreoffice-gnome transmission-gtk timeshift galculator mousepad PrismLauncher keepassxc \
     gamemode openvpn openssl openresolv libavcodec playerctl rsync maim xclip gdb unzip htop hplip \
     flatpak \
     SDL2 SDL2-devel SDL2_image SDL2_image-devel SDL2_mixer SDL2_mixer-devel SDL2_ttf SDL2_ttf-devel
@@ -58,6 +58,8 @@ flatpak install com.discordapp.Discord io.github.shiftey.Desktop -y
 ln -s /etc/sv/lightdm/ /var/service/
 ln -s /etc/sv/dbus /var/service
 ln -s /etc/sv/polkitd/ /var/service/
+ln -s /etc/sv/elogind/ /var/service/
+ln -s /etc/sv/alsa/ /var/service/
 
 # Set up pipewire
 mkdir -p /etc/pipewire/pipewire.conf.d
