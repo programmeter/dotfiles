@@ -1,0 +1,92 @@
+#!/usr/bin/env perl
+#
+# Copyright 2014 Marcelo Cerri <mhcerri at gmail dot com>
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+use strict;
+use warnings;
+use utf8;
+use Getopt::Long;
+use File::Basename;
+
+# Default values
+my $indicator = $ENV{BLOCK_INSTANCE} || $ENV{KEY} || "CAPS";
+my $text_on = $ENV{TEXT_ON} || "󰪛";
+my $text_off = $ENV{TEXT_OFF} || "";
+my $color_on  = $ENV{COLOR_ON} || "#657b69";
+my $color_off = $ENV{COLOR_OFF} || "#101014";
+my $bg_color_on = $ENV{BG_COLOR_ON};
+my $bg_color_off = $ENV{BG_COLOR_OFF};
+my $hide      = $ENV{HIDE_WHEN_OFF} || 0;
+
+sub help {
+    my $program = basename($0);
+    printf "Usage: %s [-c <color on>] [-C <color off>] [-b <bg color on>] [-B <bg color off>] [--hide]\n", $program;
+    printf "  -c <color on>: hex color to use when indicator is on\n";
+    printf "  -C <color off>: hex color to use when indicator is off\n";
+    printf "  -b <background color on>: hex color to use when indicator is on\n";
+    printf "  -B <background color off>: hex color to use when indicator is off\n";
+    printf "  --hide: don't output anything when indicator is off\n";
+    printf "\n";
+    printf "Note: environment variable \$BLOCK_INSTANCE should be one of:\n";
+    printf "  CAPS, NUM (default is CAPS).\n";
+    exit 0;
+}
+
+Getopt::Long::config qw(no_ignore_case);
+GetOptions("help|h" => \&help,
+           "c=s"    => \$color_on,
+           "C=s"    => \$color_off,
+           "b=s"    => \$bg_color_on,
+           "B=s"    => \$bg_color_off,
+           "hide"   => \$hide) or exit 1;
+
+# Key mapping
+my %indicators = (
+    CAPS => 0x00000001,
+    NUM  => 0x00000002,
+);
+
+# Retrieve key flags
+my $mask = 0;
+open(XSET, "xset -q |") or die;
+while (<XSET>) {
+    if (/LED mask:\s*([0-9a-f]+)/) {
+        $mask = hex $1;
+        last;
+    }
+}
+close(XSET);
+
+# Determine if indicator is on or off
+my $indicator_status = ($indicators{$indicator} || 0) & $mask;
+
+# Exit if --hide and indicator is off
+if ($hide and !$indicator_status) {
+    exit 0
+}
+
+# Output
+$indicator = $indicator_status ? $text_on : $text_off;
+my $fg_color = $indicator_status ? $color_on : $color_off;
+my $bg_color = $indicator_status ? $bg_color_on : $bg_color_off;
+
+if (defined $bg_color) {
+    printf "<span color='%s' bgcolor='%s'>%s</span>\n", $fg_color, $bg_color, $indicator;
+} else {
+    printf "<span color='%s'>%s</span>\n", $fg_color, $indicator;
+}
+
+exit 0
