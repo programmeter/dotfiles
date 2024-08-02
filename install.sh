@@ -33,7 +33,7 @@ if [[ "$nvidia_prompt" == "y" || "$nvidia_prompt" == "Y" ]]; then
     ln -s /etc/sv/nvidia-powerd/ /var/service/
 fi
 # Install all packages
-xbps-install xorg lightdm elogind \
+xbps-install -y xorg lightdm elogind \
     pipewire alsa-pipewire wireplumber-elogind dbus-elogind alsa-utils pavucontrol \
     xfce4-session xfce-polkit xfce4-settings \
     ncurses-libtinfo-libs ncurses-libtinfo-devel libX11-devel libXft-devel libXinerama-devel libXrandr-devel libXScrnSaver-devel pkg-config cabal-install \
@@ -43,7 +43,7 @@ xbps-install xorg lightdm elogind \
     firefox steam gimp thunderbird Thunar thunar-archive-plugin shotwell celluloid rhythmbox gnome-disk-utility libreoffice-calc libreoffice-writer libreoffice-gnome transmission-gtk timeshift galculator mousepad PrismLauncher keepassxc
     gamemode openvpn openssl openresolv libavcodec playerctl rsync maim xclip gdb unzip htop hplip \
     flatpak \
-    SDL2 SDL2-devel SDL2_image SDL2_image-devel SDL2_mixer SDL2_mixer-devel SDL2_ttf SDL2_ttf-devel -y 
+    SDL2 SDL2-devel SDL2_image SDL2_image-devel SDL2_mixer SDL2_mixer-devel SDL2_ttf SDL2_ttf-devel
 # Install xmonad
 mkdir -p "$home_dir"/.config/xmonad/
 cp "$script_dir"/userconfig/.config/xmonad/xmonad.hs "$home_dir"/.config/xmonad/
