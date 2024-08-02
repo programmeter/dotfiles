@@ -1,0 +1,4 @@
+[Desktop Entry]
+Name=Xmonad
+Type=Application
+Exec=dbus-run-session /home/defaultuser/.cabal/bin/xmonad
