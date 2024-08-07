@@ -104,6 +104,11 @@ function command_exists() {
   command -v "$1" &> /dev/null 2>&1
 }
 
+# systemctl required
+if ! command_exists systemctl ; then
+  exit 1
+fi
+
 # menu defined as an associative array
 typeset -A menu
 
@@ -125,7 +130,7 @@ launcher_options=""
 rofi_colors=""
 
 function prepare_launcher() {
-  if [[ "$1" == "rloginctlofi" ]]; then
+  if [[ "$1" == "rofi" ]]; then
     rofi_colors=(-bc "${BORDER_COLOR}" -bg "${BG_COLOR}" -fg "${FG_COLOR}" \
         -hlfg "${HLFG_COLOR}" -hlbg "${HLBG_COLOR}")
     launcher_exe="rofi"

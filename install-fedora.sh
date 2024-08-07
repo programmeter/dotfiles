@@ -67,6 +67,7 @@ cd -
 chown -R "$username":"$username" "$home_dir"
 
 systemctl set-default graphical.target
+systemctl enable --global pipewire
 
 echo "Copy VPN files to /etc/openvpn"
 echo "Set up Timeshift and set rsync destination in ~/.config/qtile/autostart.sh"
