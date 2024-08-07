@@ -50,18 +50,14 @@ mkdir -p "$home_dir"/Pictures/screenshots
 cp "$script_dir"/sysconfig/lightdm.conf /etc/lightdm/
 
 # Enable themes for root
-ln -s ~/.local/share/themes/ /root/.themes
-ln -s ~/.local/share/icons/ /root/.icons
+ln -s "$home_dir"/.local/share/themes/ /root/.themes
+ln -s "$home_dir"/.local/share/icons/ /root/.icons
 
 # Set flatpak theme
 flatpak override --filesystem=xdg-data/themes
 flatpak override --filesystem=xdg-data/icons
 flatpak override --env=GTK_THEME=Yaru-Aqua-dark
 flatpak override --env=ICON_THEME=Papirus-Dark
-
-# Set theme with xfce settings
-xfconf-query -c xsettings -p /Net/ThemeName -s "Yaru-Aqua-dark"
-xfconf-query -c xsettings -p /Net/IconThemeName -s "Papirus-Dark"
 
 # Delete useless desktop icons
 cd /usr/share/applications/
@@ -70,8 +66,7 @@ cd -
 
 chown -R "$username":"$username" "$home_dir"
 
-xdg-settings set default-web-browser firefox.desktop
-xdg-mime default thunar.desktop inode/directory
+systemctl set-default graphical.target
 
 echo "Copy VPN files to /etc/openvpn"
 echo "Set up Timeshift and set rsync destination in ~/.config/qtile/autostart.sh"

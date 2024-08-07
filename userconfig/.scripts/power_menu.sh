@@ -109,10 +109,10 @@ typeset -A menu
 
 # Menu with keys/commands
 menu=(
-  [⏻   Shutdown]="loginctl poweroff"
-  [   Reboot]="loginctl reboot"
-  [󰤄   Suspend]="loginctl suspend"
-  [   Lock]="/home/martin/.scripts/lock.sh"
+  [⏻   Shutdown]="systemctl poweroff"
+  [   Reboot]="systemctl reboot"
+  [󰤄   Suspend]="systemctl suspend"
+  [   Lock]="~/.scripts/lock.sh"
   [󰹿   Cancel]=""
 )
 menu_nrows=${#menu[@]}
@@ -125,7 +125,7 @@ launcher_options=""
 rofi_colors=""
 
 function prepare_launcher() {
-  if [[ "$1" == "rofi" ]]; then
+  if [[ "$1" == "rloginctlofi" ]]; then
     rofi_colors=(-bc "${BORDER_COLOR}" -bg "${BG_COLOR}" -fg "${FG_COLOR}" \
         -hlfg "${HLFG_COLOR}" -hlbg "${HLBG_COLOR}")
     launcher_exe="rofi"
