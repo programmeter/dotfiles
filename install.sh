@@ -18,9 +18,7 @@ home_dir='/home/'"$username"
 script_dir=$(dirname $(realpath $0))
 
 # Set username
-sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/userconfig/.config/xmobarrc
 sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/sysconfig/lightdm.conf
-sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/sysconfig/xmonad.desktop
 
 # Add additional repositories
 xbps-install void-repo-nonfree void-repo-multilib void-repo-multilib-nonfree -y
@@ -28,28 +26,22 @@ xbps-install -S
 
 # Install nvidia drivers
 if [[ "$nvidia_prompt" == "y" || "$nvidia_prompt" == "Y" ]]; then
-	xbps-install nvidia nvidia-libs-32bit -y
+	xbps-install -y nvidia nvidia-libs-32bit
     # Enable nvidia runit service
     ln -s /etc/sv/nvidia-powerd/ /var/service/
 fi
 # Install all packages
 xbps-install -y xorg lightdm elogind \
     pipewire alsa-pipewire wireplumber-elogind dbus-elogind alsa-utils pavucontrol \
-    xfce4-session xfce-polkit xfce4-settings \
-    ncurses-libtinfo-libs ncurses-libtinfo-devel libX11-devel libXft-devel libXinerama-devel libXrandr-devel libXScrnSaver-devel pkg-config cabal-install \
-    git vim picom rofi xmobar dunst alacritty feh \
+    xfce4-session xfce-polkit xfce4-settings xdg-desktop-portal xdg-desktop-portal-gtk gnome-keyring \
+    qtile python3-psutil \
+    git vim picom rofi dunst alacritty \
     libgcc-32bit libstdc++-32bit libdrm-32bit libglvnd-32bit \
     i3lock xautolock xss-lock \
     firefox steam gimp thunderbird Thunar thunar-archive-plugin shotwell celluloid rhythmbox gnome-disk-utility libreoffice-calc libreoffice-writer libreoffice-gnome transmission-gtk timeshift galculator mousepad PrismLauncher keepassxc \
     gamemode openvpn openssl openresolv libavcodec playerctl rsync maim xclip gdb unzip htop hplip \
     flatpak \
     SDL2 SDL2-devel SDL2_image SDL2_image-devel SDL2_mixer SDL2_mixer-devel SDL2_ttf SDL2_ttf-devel
-# Install xmonad
-mkdir -p "$home_dir"/.config/xmonad/
-cp "$script_dir"/userconfig/.config/xmonad/xmonad.hs "$home_dir"/.config/xmonad/
-sudo -u "$username" cabal update
-sudo -u "$username" cabal install --package-env="$home_dir"/.config/xmonad --lib base xmonad xmonad-contrib
-sudo -u "$username" cabal install --package-env="$home_dir"/.config/xmonad xmonad
 
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install com.discordapp.Discord io.github.shiftey.Desktop -y

@@ -1,11 +1,13 @@
-HOST=fedoraproject.org
+#!/bin/bash
+
+HOST=voidlinux.org
 
 ping -c1 $HOST 1>/dev/null 2>/dev/null
 SUCCESS=$?
 
 if [ $SUCCESS -eq 0 ]
 then
-    echo "<fc=#425a61> </fc>"
+    echo "<span color='#c27b62'> </span>"
 else
-    echo "<fc=#262320> </fc>"
+    echo "<span color='#262320'> </span>"
 fi

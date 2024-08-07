@@ -2,7 +2,7 @@
 autolock=$(pgrep -a xautolock$ | head -n 1 | awk '{print $NF }' | cut -d '.' -f 1)
 
 if [ "$autolock" != "" ]; then
-    echo "<fc=#262320> </fc>"
+    echo "<span color='#262320'></span>"
 else
-    echo "<fc=#425a61> </fc>"
+    echo "<span color='#c27b62'></span>"
 fi

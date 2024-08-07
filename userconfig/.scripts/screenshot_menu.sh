@@ -6,7 +6,7 @@ echo "󰹑     Entire screen, save to folder
 󰒉     Select area, save to folder
 󰹑  󰅌   Entire screen, copy to clipboard
 󱂬  󰅌   Current window, copy to clipboard
-󰒉  󰅌   Select area, copy to clipboard" | rofi -dmenu -p "Screenshot: " -l 6 -format i -theme-str "configuration { show-icons: false; } window { width: 450px; }") 
+󰒉  󰅌   Select area, copy to clipboard" | rofi -dmenu -p "Screenshot:" -l 6 -format i -theme-str "configuration { show-icons: false; } window { width: 450px; }") 
 
 [[ -z $selected ]] && exit
 

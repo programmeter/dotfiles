@@ -10,7 +10,7 @@ Config {
    -- layout
    , sepChar =  "&"   -- delineator between plugin names and straight text
    , alignSep = "}{"  -- separator between left-right alignment
-   , template = " &XMonadLog& } [ &date& ] { [ <box type=Bottom width=2 color=#5b7b85>&kbd& / <action=`pactl set-sink-volume @DEFAULT_SINK@ +5%` button=4><action=`pactl set-sink-volume @DEFAULT_SINK@ -5%` button=5><fc=#5b7b85>󰕾 </fc><fc=#e2d7cc>&volume&</fc></action></action> / &multicpu& / &memory& / &disku& / </box><box type=Bottom width=2 color=#c27b62><fc=#c27b62> </fc><fc=#e2d7cc>&updates&</fc> </box><box type=Bottom width=2 color=#425a61>/ &autolock& &vpn& &connection&</box> ]  <action=`/home/defaultuser/.scripts/power_menu.sh` button=1><box type=Bottom width=2 color=#c27b62>[<hspace=10/><fc=#c27b62></fc><hspace=14/>]</box></action> "
+   , template = " &XMonadLog& } [ &date& ] { [ <box type=Bottom width=2 color=#5b7b85>&kbd& / <action=`pactl set-sink-volume @DEFAULT_SINK@ +5%` button=4><action=`pactl set-sink-volume @DEFAULT_SINK@ -5%` button=5><fc=#5b7b85>󰕾 </fc><fc=#e2d7cc>&volume&</fc></action></action> / &multicpu& / &memory& / &disku& / </box><box type=Bottom width=2 color=#c27b62><fc=#c27b62> </fc><fc=#e2d7cc>&updates&</fc> </box><box type=Bottom width=2 color=#425a61>/ &autolock& &vpn& &connection&</box> ]  <action=`/home/martin/.scripts/power_menu.sh` button=1><box type=Bottom width=2 color=#c27b62>[<hspace=10/><fc=#c27b62></fc><hspace=14/>]</box></action> "
 
    -- general behavior
    , lowerOnStart =     True    -- send to bottom of window stack on start
@@ -47,12 +47,12 @@ Config {
         --   (%F = y-m-d date, %a = day of week, %T = h:m:s time)
         , Run Date           "<box type=Bottom color=#5b7b85 width=2><fc=#e2d7cc> %H:%M %a %b %d, %Y</fc></box>" "date" 10
 	
-	, Run Com "/home/defaultuser/.scripts/volume_level.sh" [] "volume" 5
-	, Run Com "/home/defaultuser/.scripts/check_update.sh" [] "updates" 300 
-	, Run Com "/home/defaultuser/.scripts/autolock_status.sh" [] "autolock" 10
-	, Run Com "/home/defaultuser/.scripts/vpn_indicator.sh" [] "vpn" 50
+	, Run Com "/home/martin/.scripts/volume_level.sh" [] "volume" 5
+	, Run Com "/home/martin/.scripts/check_update.sh" [] "updates" 300 
+	, Run Com "/home/martin/.scripts/autolock_status.sh" [] "autolock" 10
+	, Run Com "/home/martin/.scripts/vpn_indicator.sh" [] "vpn" 50
 	-- For some reason this doesn't work without passing the script to bash
-	, Run Com "/bin/bash" ["-c", "/home/defaultuser/.scripts/check_connection.sh"] "connection" 50
+	, Run Com "/bin/bash" ["-c", "/home/martin/.scripts/check_connection.sh"] "connection" 50
 
         -- keyboard layout indicator
         , Run Kbd            [ ("us" , "<fc=#5b7b85>  </fc><fc=#e2d7cc>US</fc>")
