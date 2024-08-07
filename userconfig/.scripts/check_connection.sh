@@ -1,6 +1,6 @@
 #!/bin/bash
 
-HOST=voidlinux.org
+HOST=fedoraproject.org
 
 ping -c1 $HOST 1>/dev/null 2>/dev/null
 SUCCESS=$?

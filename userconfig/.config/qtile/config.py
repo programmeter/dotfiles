@@ -255,7 +255,7 @@ screens = [
                 ),
                 widget.TextBox(foreground=color_inactive, fmt="/", padding=0),
                 widget.CheckUpdates(
-                    distro='Void',
+                    distro='Fedora',
                     colour_no_updates=color_fg,
                     colour_have_updates=color_alert,
                     display_format=" {updates}",
