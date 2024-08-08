@@ -34,7 +34,7 @@ if [[ "$nvidia_prompt" == "y" || "$nvidia_prompt" == "Y" ]]; then
 	dnf install -y akmod-nvidia nvidia-vaapi-driver libva-utils vdpauinfo
 fi
 # Install all packages
-dnf install -y xinput lightdm pipewire pipewire-pulseaudio alsa-utils pavucontrol xfce4-session xfce4-settings qtile python-psutil git vim picom rofi dunst alacritty i3lock xautolock xss-lock firefox steam gimp thunderbird thunar thunar-archive-plugin shotwell celluloid rhythmbox gnome-disk-utility libreoffice-calc libreoffice-writer libreoffice-gtk3 transmission-gtk timeshift galculator mousepad enpass gamemode openvpn openssl openresolv @multimedia playerctl rsync maim xclip gdb unzip htop hplip flatpak SDL2 SDL2-devel SDL2_image SDL2_image-devel SDL2_mixer SDL2_mixer-devel SDL2_ttf SDL2_ttf-devel
+dnf install -y xinput xcb-util-keysyms lightdm gnome-keyring pipewire pipewire-pulseaudio alsa-utils pavucontrol xfce4-session xfce4-settings qtile python-psutil git vim picom rofi dunst alacritty i3lock xautolock xss-lock firefox steam gimp thunderbird thunar thunar-archive-plugin shotwell celluloid rhythmbox gnome-disk-utility libreoffice-calc libreoffice-writer libreoffice-gtk3 transmission-gtk timeshift galculator mousepad enpass gamemode openvpn openssl openresolv @multimedia playerctl rsync maim xclip gdb unzip htop hplip flatpak SDL2 SDL2-devel SDL2_image SDL2_image-devel SDL2_mixer SDL2_mixer-devel SDL2_ttf SDL2_ttf-devel
 
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
 flatpak install com.discordapp.Discord io.github.shiftey.Desktop org.prismlauncher.PrismLauncher -y

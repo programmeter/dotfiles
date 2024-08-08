@@ -52,7 +52,7 @@ terminal = "alacritty"
 web_browser = "firefox"
 file_manager = "thunar"
 run_launcher = "rofi -show drun"
-pwd_manager = "keepassxc"
+pwd_manager = "/opt/Enpass/enpass"
 game_launcher = "steam"
 
 @hook.subscribe.startup_once
