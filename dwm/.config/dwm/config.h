@@ -85,8 +85,8 @@ static const char *filemanagercmd[] = { "thunar", NULL };
 static const char *gamecmd[] 	    = { "steam" };
 static const char *quitcmd[]	    = { "/bin/bash", "-c", "/home/defaultuser/.scripts/power-menu.sh" };
 static const char *scrshotcmd[]     = { "/bin/bash", "-c", "/home/defaultuser/.scripts/screenshot-menu.sh" };
-static const char *vpntogglecmd[]   = { "/bin/bash", "-c", "/home/defaultuser/.scripts/vpn-toggle.sh" };
-static const char *locktogglecmd[]  = { "pkexec", "/bin/bash", "-c", "/home/defaultuser/.scripts/autolock-toggle.sh" };
+static const char *vpntogglecmd[]   = { "pkexec", "/bin/bash", "-c", "/home/defaultuser/.scripts/vpn-toggle.sh" };
+static const char *locktogglecmd[]  = { "/bin/bash", "-c", "/home/defaultuser/.scripts/autolock-toggle.sh" };
 
 // KEYBINDINGS
 static const Key keys[] = {
