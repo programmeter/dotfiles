@@ -7,7 +7,7 @@ const unsigned int interval = 1000;
 static const char unknown_str[] = "";
 
 /* maximum output string length */
-#define MAXLEN 2048
+#define CMDLEN 128
 
 /*
  * function            description                     argument (example)
@@ -64,15 +64,15 @@ static const char unknown_str[] = "";
  * wifi_perc           WiFi signal in percent          interface name (wlan0)
  */
 static const struct arg args[] = {
-	/* function 	format      				  argument */
-	{ keymap,   	"^c#333c4c^ [ ^c#4d6a8e^  ^d^%s", 	  NULL },
-	{ run_command,  "^c#333c4c^ / ^c#4d6a8e^󰕾 ^d^%s", 	  "/home/defaultuser/.scripts/volume-level.sh" },
-	{ cpu_perc,  	"^c#333c4c^ / ^c#4d6a8e^ ^d^%s%%", 	  NULL },
-	{ ram_used,	"^c#333c4c^ / ^c#4d6a8e^ ^d^%s",         NULL },
-	{ disk_free,	"^c#333c4c^ / ^c#4d6a8e^ ^d^%s",         "/home" },
-	{ run_command,  "%s ^c#333c4c^]", 			  "/home/defaultuser/.scripts/update-status.sh" },
-	{ run_command,	"^c#333c4c^ [ %s", 			  "/home/defaultuser/.scripts/autolock-status.sh" },
-	{ run_command,	" %s", 					  "/home/defaultuser/.scripts/vpn-status.sh" },
-	{ run_command,	" %s ^c#333c4c^]", 			  "/home/defaultuser/.scripts/connection-status.sh" },
-	{ datetime, 	"^c#333c4c^ [ ^c#ebcb8b^%s ^c#333c4c^] ", "%H:%M %a %b %d, %Y" }
+	/* function 	format      				              argument                                      interval signal*/
+	{ keymap,   	"^c#333c4c^ [ ^c#4d6a8e^  ^d^%s",        NULL,                                         1,       -1 },
+	{ run_command,  "^c#333c4c^ / ^c#4d6a8e^󰕾 ^d^%s", 	      "/home/defaultuser/.scripts/volume-level.sh",      1,       -1 },
+	{ cpu_perc,  	"^c#333c4c^ / ^c#4d6a8e^ ^d^%s%%",	      NULL,                                         3,       -1 },
+	{ ram_used,	    "^c#333c4c^ / ^c#4d6a8e^ ^d^%s",         NULL,                                         3,       -1 },
+	{ disk_free,	"^c#333c4c^ / ^c#4d6a8e^ ^d^%s",         "/home",                                      120,     -1 },
+	{ run_command,  "%s ^c#333c4c^]", 			              "/home/defaultuser/.scripts/update-status.sh",     300,     -1 },
+	{ run_command,	"^c#333c4c^ [ %s", 			              "/home/defaultuser/.scripts/autolock-status.sh",   1,       -1 },
+	{ run_command,	" %s", 					                  "/home/defaultuser/.scripts/vpn-status.sh",        5,       -1 },
+	{ run_command,	" %s ^c#333c4c^]", 			              "/home/defaultuser/.scripts/connection-status.sh", 5,       -1 },
+	{ datetime, 	"^c#333c4c^ [ ^c#ebcb8b^%s ^c#333c4c^] ", "%H:%M %a %b %d, %Y",                         1,       -1 }
 };

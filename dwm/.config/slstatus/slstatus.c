@@ -15,20 +15,19 @@ struct arg {
 	const char *(*func)(const char *);
 	const char *fmt;
 	const char *args;
+	unsigned int interval;
+	int signal;
 };
 
 char buf[1024];
+static int sflag = 0;
 static volatile sig_atomic_t done;
 static Display *dpy;
 
 #include "config.h"
+#define MAXLEN CMDLEN * LEN(args)
 
-static void
-terminate(const int signo)
-{
-	if (signo != SIGUSR1)
-		done = 1;
-}
+static char statuses[LEN(args)][CMDLEN] = {0};
 
 static void
 difftimespec(struct timespec *res, struct timespec *a, struct timespec *b)
@@ -44,17 +43,67 @@ usage(void)
 	die("usage: %s [-v] [-s] [-1]", argv0);
 }
 
+static void
+printstatus(int it, int upsig)
+{
+	size_t i;
+	int update = 0;
+	char status[MAXLEN];
+	const char *res;
+
+	for (i = 0; i < LEN(args); i++) {
+		if (!(((args[i].interval > 0 && it > 0 && !(it % args[i].interval)) && upsig < 0) ||
+		     (upsig > -1 && args[i].signal == upsig) || (it == -1 && upsig == -1)))
+			continue;
+
+		update = 1;
+
+		if (!(res = args[i].func(args[i].args)))
+			res = unknown_str;
+
+		if (esnprintf(statuses[i], sizeof(statuses[i]), args[i].fmt, res) < 0)
+			break;
+	}
+
+	if (!update)
+		return;
+
+	status[0] = '\0';
+	for (i = 0; i < LEN(args); i++)
+		strcat(status, statuses[i]);
+	status[strlen(status)] = '\0';
+
+	if (sflag) {
+		puts(status);
+		fflush(stdout);
+		if (ferror(stdout))
+			die("puts:");
+	} else {
+		if (XStoreName(dpy, DefaultRootWindow(dpy), status) < 0)
+			die("XStoreName: Allocation failed");
+		XFlush(dpy);
+	}
+}
+
+
+static void
+sighandler(const int signo)
+{
+	if (signo <= SIGRTMAX && signo >= SIGRTMIN)
+		printstatus(-1, signo - SIGRTMIN);
+	else if (signo == SIGUSR1)
+		printstatus(-1, -1);
+	else
+		done = 1;
+}
+
 int
 main(int argc, char *argv[])
 {
 	struct sigaction act;
 	struct timespec start, current, diff, intspec, wait;
-	size_t i, len;
-	int sflag, ret;
-	char status[MAXLEN];
-	const char *res;
+	int i, ret, time = 0;
 
-	sflag = 0;
 	ARGBEGIN {
 	case 'v':
 		die("slstatus-"VERSION);
@@ -72,41 +121,23 @@ main(int argc, char *argv[])
 		usage();
 
 	memset(&act, 0, sizeof(act));
-	act.sa_handler = terminate;
+	act.sa_handler = sighandler;
 	sigaction(SIGINT,  &act, NULL);
 	sigaction(SIGTERM, &act, NULL);
-	act.sa_flags |= SA_RESTART;
 	sigaction(SIGUSR1, &act, NULL);
+	for (i = SIGRTMIN; i <= SIGRTMAX; i++)
+		sigaction(i, &act, NULL);
 
 	if (!sflag && !(dpy = XOpenDisplay(NULL)))
 		die("XOpenDisplay: Failed to open display");
+
+	printstatus(-1, -1);
 
 	do {
 		if (clock_gettime(CLOCK_MONOTONIC, &start) < 0)
 			die("clock_gettime:");
 
-		status[0] = '\0';
-		for (i = len = 0; i < LEN(args); i++) {
-			if (!(res = args[i].func(args[i].args)))
-				res = unknown_str;
-
-			if ((ret = esnprintf(status + len, sizeof(status) - len,
-			                     args[i].fmt, res)) < 0)
-				break;
-
-			len += ret;
-		}
-
-		if (sflag) {
-			puts(status);
-			fflush(stdout);
-			if (ferror(stdout))
-				die("puts:");
-		} else {
-			if (XStoreName(dpy, DefaultRootWindow(dpy), status) < 0)
-				die("XStoreName: Allocation failed");
-			XFlush(dpy);
-		}
+		printstatus(time++, -1);
 
 		if (!done) {
 			if (clock_gettime(CLOCK_MONOTONIC, &current) < 0)
@@ -117,10 +148,11 @@ main(int argc, char *argv[])
 			intspec.tv_nsec = (interval % 1000) * 1E6;
 			difftimespec(&wait, &intspec, &diff);
 
-			if (wait.tv_sec >= 0 &&
-			    nanosleep(&wait, NULL) < 0 &&
-			    errno != EINTR)
-					die("nanosleep:");
+			do
+				ret = nanosleep(&wait, &wait);
+			while (wait.tv_sec >= 0 && ret < 0 && errno != EINTR && !done);
+			if (ret < 0 && errno != EINTR)
+				die("nanosleep:");
 		}
 	} while (!done);
 

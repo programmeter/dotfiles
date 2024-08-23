@@ -2,7 +2,7 @@
 
 HOST=debian.org
 
-ping -c1 $HOST 1>/dev/null 2>/dev/null
+timeout 1 ping -c1 $HOST 1>/dev/null 2>/dev/null
 SUCCESS=$?
 
 if [ $SUCCESS -eq 0 ]
