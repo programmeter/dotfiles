@@ -42,11 +42,18 @@ if [[ "$nvidia_prompt" == "y" || "$nvidia_prompt" == "Y" ]]; then
 	apt install nvidia-driver nvidia-settings nvidia-driver-libs:i386 -y
 fi
 # Install all packages
-apt install xorg make gcc libx11-dev libxft-dev libxinerama-dev libxcb-keysyms1 pipewire pipewire-pulse pipewire-alsa alsa-utils i3lock steam gimp inkscape xfce4-settings thunderbird firefox-esr alacritty thunar vim git unzip shotwell celluloid rofi lightdm feh picom dunst xinput maim xclip libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev libsdl2-ttf-2.0-0 libsdl2-ttf-dev libsdl2-mixer-2.0-0 libsdl2-mixer-dev rhythmbox xautolock htop libavcodec-extra playerctl gnome-disk-utility gufw enpass libreoffice-calc libreoffice-writer libreoffice-gtk3 printer-driver-hpcups hplip gamemode openvpn openssl openresolv transmission-gtk rsync timeshift pavucontrol gdb flatpak galculator mousepad thunar-archive-plugin ./Minecraft.deb -y
+apt install xorg make gcc libx11-dev libxft-dev libxinerama-dev libxcb-keysyms1 pipewire pipewire-pulse pipewire-alsa alsa-utils i3lock steam gimp inkscape xfce4-settings thunderbird firefox-esr alacritty thunar vim git unzip shotwell celluloid rofi lightdm feh picom dunst xinput maim xclip libsdl2-2.0-0 libsdl2-dev libsdl2-image-2.0-0 libsdl2-image-dev libsdl2-ttf-2.0-0 libsdl2-ttf-dev libsdl2-mixer-2.0-0 libsdl2-mixer-dev rhythmbox xautolock htop libavcodec-extra playerctl gnome-disk-utility gufw enpass libreoffice-calc libreoffice-writer libreoffice-gtk3 printer-driver-hpcups hplip gamemode openvpn openssl openresolv transmission-gtk rsync timeshift pavucontrol gdb flatpak galculator mousepad thunar-archive-plugin python3-venv ./Minecraft.deb -y
 apt install --no-install-recommends xfce4-session -y
 
+# Install neovim
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+mkdir -p /opt/nvim
+mv nvim.appimage /opt/nvim/nvim
+
+# Install flatpaks
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-flatpak install com.discordapp.Discord io.github.shiftey.Desktop com.vscodium.codium -y
+flatpak install com.discordapp.Discord io.github.shiftey.Desktop -y
 
 # Install dwm and slstatus
 cd "$script_dir"/dwm/.config/dwm
