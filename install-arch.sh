@@ -24,10 +24,10 @@ sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/dwm/.config/slstatus/config
 
 # Install nvidia drivers
 if [[ "$nvidia_prompt" == "y" || "$nvidia_prompt" == "Y" ]]; then
-	pacman -S nvidia-open-dkms nvidia-settings nvidia-utils lib32-nvidia-utils --noconfirm
+	pacman -S nvidia-open dkms nvidia-open-dkms nvidia-settings nvidia-utils lib32-nvidia-utils --noconfirm
 fi
 # Install all packages
-pacman -S xorg-server make gcc libx11 libxft libxinerama pipewire pipewire-pulse man-db pipewire-alsa alsa-utils i3lock steam gimp xfce4-settings xfce4-session gnome-keyring thunderbird firefox alacritty thunar vim git unzip shotwell celluloid rofi lightdm lightdm-gtk-greeter feh picom dunst maim xclip sdl2 sdl2_image sdl2_ttf sdl2_mixer rhythmbox xautolock xss-lock htop playerctl gnome-disk-utility libreoffice-still hplip gamemode openvpn openssl openresolv transmission-gtk rsync timeshift pavucontrol gdb flatpak galculator mousepad thunar-archive-plugin neovim keepassxc --noconfirm
+pacman -S xorg-server xorg-xinit make gcc libx11 libxft libxinerama pipewire pipewire-pulse man-db pipewire-alsa alsa-utils i3lock steam gimp xfce4-settings xfce4-session gnome-keyring thunderbird firefox alacritty thunar vim git unzip shotwell celluloid rofi lightdm lightdm-gtk-greeter feh picom dunst maim xclip sdl2 sdl2_image sdl2_ttf sdl2_mixer rhythmbox xautolock xss-lock htop playerctl gnome-disk-utility libreoffice-still hplip gamemode openvpn openssl openresolv transmission-gtk rsync timeshift pavucontrol gdb flatpak galculator mousepad thunar-archive-plugin neovim keepassxc --noconfirm
 
 # Install flatpaks
 flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
