@@ -55,18 +55,17 @@ static const Layout layouts[] = {
 
 // AUTOSTART APPLICATIONS
 static const char *const autostart[] = {
-	"/bin/bash", "-c", "/home/defaultuser/.scripts/lock.sh", NULL,
 	"xfce4-session", NULL,
 	"xfsettingsd", NULL,
 	// Uncomment if you want to lock on start
-	//"/bin/bash", "-c", "/home/defaultuser/.scripts/lock.sh", NULL,
-	"/bin/bash", "-c", "/home/defaultuser/.scripts/autolock-start.sh", NULL,
+	"/bin/bash", "-c", "/home/martin/.scripts/lock.sh", NULL,
 	// Disables screensaver, since that's handled by xautolock
 	"xset", "s", "0", "0", "dpms", "0", "0", "0", NULL,
+	"xss-lock", "--transfer-sleep-lock", "--", "/home/martin/.scripts/lock.sh", NULL,
 	// Set sleep lock
-	"xss-lock", "--transfer-sleep-lock", "--", "/home/defaultuser/.scripts/lock.sh", NULL,
+    "/bin/bash", "-c", "/home/martin/.scripts/autolock-start.sh", NULL,
 	// Set wallpaper
-	"feh", "--bg-fill", "/home/defaultuser/.local/share/wallpapers/wallpaper.png", NULL,
+	"feh", "--bg-fill", "/home/martin/.local/share/wallpapers/wallpaper.png", NULL,
 	"picom", NULL,
 	"dunst", NULL,
 	"/bin/bash", "-c", "~/.scripts/kblayout.sh", NULL,
@@ -83,24 +82,24 @@ static const char *termcmd[]  	    = { "alacritty", NULL };
 static const char *browsercmd[]     = { "firefox-esr" };
 static const char *filemanagercmd[] = { "thunar", NULL };
 static const char *gamecmd[] 	    = { "steam" };
-static const char *quitcmd[]	    = { "/bin/bash", "-c", "/home/defaultuser/.scripts/power-menu.sh" };
-static const char *scrshotcmd[]     = { "/bin/bash", "-c", "/home/defaultuser/.scripts/screenshot-menu.sh" };
-static const char *vpntogglecmd[]   = { "pkexec", "/bin/bash", "-c", "/home/defaultuser/.scripts/vpn-toggle.sh" };
-static const char *locktogglecmd[]  = { "/bin/bash", "-c", "/home/defaultuser/.scripts/autolock-toggle.sh" };
+static const char *quitcmd[]	    = { "/bin/bash", "-c", "/home/martin/.scripts/power-menu.sh" };
+static const char *scrshotcmd[]     = { "/bin/bash", "-c", "/home/martin/.scripts/screenshot-menu.sh" };
+static const char *vpntogglecmd[]   = { "pkexec", "/bin/bash", "-c", "/home/martin/.scripts/vpn-toggle.sh" };
+static const char *locktogglecmd[]  = { "/bin/bash", "-c", "/home/martin/.scripts/autolock-toggle.sh" };
 
 // KEYBINDINGS
 static const Key keys[] = {
 	// modifier                     key        function        argument
 	{ MODKEY,                       XK_x,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|Mod1Mask,              XK_Return, spawn,          {.v = termcmd } },
-	{ MODKEY,			XK_b,	   spawn,	   {.v = browsercmd } },
-	{ MODKEY,			XK_f,	   spawn,	   {.v = filemanagercmd } },
-	{ MODKEY,			XK_g,	   spawn,	   {.v = gamecmd } },
+	{ MODKEY,			            XK_b,	   spawn,	       {.v = browsercmd } },
+	{ MODKEY,			            XK_f,	   spawn,	       {.v = filemanagercmd } },
+	{ MODKEY,			            XK_g,	   spawn,	       {.v = gamecmd } },
 	{ MODKEY,                       XK_s,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_w,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_comma,  incnmaster,     {.i = +1 } },
 	{ MODKEY,                       XK_period, incnmaster,     {.i = -1 } },
-	{ MODKEY,			XK_q,	   focusmaster,	   {0} },
+	{ MODKEY,			            XK_q,	   focusmaster,	   {0} },
 	{ MODKEY,                       XK_a,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_d,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
@@ -113,9 +112,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|Mod1Mask,              XK_a,  	   tagmon,         {.i = -1 } },
 	{ MODKEY|Mod1Mask,              XK_d,      tagmon,         {.i = +1 } },
-	{ 0,				XK_Print,  spawn,	   {.v = scrshotcmd } },
-	{ MODKEY|Mod1Mask,		XK_l,	   spawn, 	   {.v = locktogglecmd } },
-	{ MODKEY|Mod1Mask,		XK_v,	   spawn, 	   {.v = vpntogglecmd } },
+	{ 0,				            XK_Print,  spawn,	       {.v = scrshotcmd } },
+	{ MODKEY|Mod1Mask,	           	XK_l,	   spawn, 	       {.v = locktogglecmd } },
+	{ MODKEY|Mod1Mask,		        XK_v,	   spawn, 	       {.v = vpntogglecmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
