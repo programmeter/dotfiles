@@ -92,7 +92,7 @@ flatpak override --env=ICON_THEME=Papirus-Dark
 chown -R "$username":"$username" "$home_dir"
 
 echo "Copy VPN files to /etc/openvpn"
-echo "Set up Timeshift and set rsync destination in WM autostart script"
+echo "Set up Timeshift and set rsync command in ~/.scripts/rsync-home.sh"
 echo "Run # hp-setup -i to run HP printer setup"
 echo "Add @reboot sleep 10 && /usr/bin/apt-get update to sudo crontab -e"
 echo "Tweak settings in xfce settings manager"

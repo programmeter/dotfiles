@@ -61,15 +61,15 @@ static const char *const autostart[] = {
 	"/bin/bash", "-c", "/home/martin/.scripts/lock.sh", NULL,
 	// Disables screensaver, since that's handled by xautolock
 	"xset", "s", "0", "0", "dpms", "0", "0", "0", NULL,
-	"xss-lock", "--transfer-sleep-lock", "--", "/home/martin/.scripts/lock.sh", NULL,
 	// Set sleep lock
-    "/bin/bash", "-c", "/home/martin/.scripts/autolock-start.sh", NULL,
+	"xss-lock", "--transfer-sleep-lock", "--", "/home/martin/.scripts/lock.sh", NULL,
 	// Set wallpaper
 	"feh", "--bg-fill", "/home/martin/.local/share/wallpapers/wallpaper.png", NULL,
 	"picom", NULL,
 	"dunst", NULL,
 	"/bin/bash", "-c", "~/.scripts/kblayout.sh", NULL,
 	"slstatus", NULL,
+    "/bin/bash", "-c", "~/.scripts/rsync-home.sh", NULL,
 	"steam", "-silent", NULL,
 	NULL
 };
