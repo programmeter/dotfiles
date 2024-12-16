@@ -1,0 +1,11 @@
+[Unit]
+Description=Run slstatus after waking up from suspend/hibernate
+After=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target
+
+
+[Service]
+ExecStart=/usr/local/bin/slstatus
+User=defaultuser
+
+[Install]
+WantedBy=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target

@@ -19,6 +19,7 @@ script_dir=$(dirname $(realpath $0))
 
 # Set username
 sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/sysconfig/lightdm.conf
+sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/sysconfig/wakeup-slstatus.service
 sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/dwm/.config/dwm/config.h
 sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/dwm/.config/slstatus/config.h
 sed -i 's/defaultuser/'"$username"'/g' "$script_dir"/dwm/.config/slock/config.h
@@ -77,7 +78,12 @@ mkdir -p "$home_dir"/Pictures/screenshots
 # Copy system configurations
 cp "$script_dir"/sysconfig/lightdm.conf /etc/lightdm/
 cp "$script_dir"/sysconfig/dwm.desktop /usr/share/xsessions
+cp "$script_dir"/sysconfig/wakeup-slstatus.service /etc/systemd/system
+
 rm /usr/share/xsessions/xfce.desktop
+
+# Fix slstatus sleep bug
+systemctl enable wakeup-slstatus
 
 # Enable themes for root
 ln -s "$home_dir"/.local/share/themes/ /root/.themes
